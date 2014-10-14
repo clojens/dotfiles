@@ -1,0 +1,10 @@
+
+= Dotfiles
+:gh: https://github.com
+
+For a whole bunch of programs in my selection:
+
+. {gh}/LightTable/LightTable[Light Table editor] -> `lt/`
+
+
+
