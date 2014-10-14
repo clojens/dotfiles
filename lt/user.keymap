@@ -1,0 +1,39 @@
+;; rob jentzema's keymap of 🔖tags
+;; 💉inject
+
+{:+
+ {:app
+  {;; Keep space free from kv pairs to easily alt-↓&↑
+   "ctrl-shift-space" [:workspace.show]
+   "ctrl-t" [:instarepl] ;📝
+   "alt-a" [:aleph.browse] ;📚
+   "ctrl-right" [:tabs.next]
+   "ctrl-left" [:tabs.prev]
+   "ctrl-backspace" [:instarepl.toggle-live] ;📴
+   "ctrl-b" [:behaviors.modify-user]
+   "ctrl-k" [:keymap.modify-user] ;🔑
+   "ctrl-/" [:toggle-log] ;📃
+   "alt-w" [:workspace.show] ;🏭
+   "ctrl-d" [:editor.doc.toggle] ;📒
+   "ctrl-shift-/" [:clear-console :reset-working] ;💤 💥
+   "alt-n" [:new-file :set-syntax]
+   }
+
+  :editor
+  {;; Generic *all* Light Table editors
+   "alt-up" [:editor.sublime.swapLineUp]
+   "alt-down" [:editor.sublime.swapLineDown]
+   "alt-left" [:editor.line-start]
+   "alt-right" [:editor.line-end]
+   "ctrl-space" [:editor.sublime.selectBetweenBrackets] ;
+   "alt-d" [:editor.delete-line] ;⨳
+   "ctrl-t" [:instarepl :instarepl.toggle-live] ;🌀
+   "ctrl-shift-." [:show-connect :focus-last-editor] ;📶
+   "ctrl-i" [:clear-inline-results] ;⎚
+   "ctrl-;" [:toggle-comment-selection] ;💬
+   "ctrl-k" [:keymap.modify-user] ;💍
+   "ctrl-b" [:behaviors.modify-user] ;💑
+   "alt-q" [:lt.plugins.reflow/reflow] ;🔀
+   }
+
+     }}
