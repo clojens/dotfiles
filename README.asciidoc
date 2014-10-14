@@ -4,7 +4,8 @@
 
 For a whole bunch of programs in my selection:
 
-. {gh}/LightTable/LightTable[Light Table editor] -> `lt/`
+. {gh}/LightTable/LightTable[Light Table editor] -> `lighttable/`
+. {gh}/technomancy/leiningen[Leiningen Clojure build tool] -> `leiningen/`
 
 
 
