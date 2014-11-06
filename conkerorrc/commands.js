@@ -1,5 +1,21 @@
 
 set_handler("follow",
+                    alternates(follow,
+                                               follow_new_buffer_background,
+                                                                      follow_new_buffer,
+                                                                                             follow_new_window));
+
+interactive("find-url-from-history",
+                    "Open a URL in the current buffer",
+                                function (I) {
+                                                    var target = I.browse_target("find-url");
+                                                                    open_in_browser(I.buffer, target,
+                                                                                                            (yield I.minibuffer.read_url($prompt =
+                                                                                                                                         browse_target_prompt(target), $use_webjumps = false, $use_history =
+                                                                                                                                         true, $use_bookmarks = false)
+// From http://jjfoerch.com/git/conkerorrc/commands.js
+
+set_handler("follow",
             alternates(follow,
                        follow_new_buffer_background,
                        follow_new_buffer,
@@ -54,3 +70,14 @@ interactive("toggle-stylesheets",
   for (var i = 0; i < s.length; i++)
     s[i].disabled = !s[i].disabled;
 });
+
+                                                                                                             
+                                                                                                             
+interactive("delete", null,
+    function (I) {
+        var elem = yield read_browser_object(I);
+        elem.parentNode.removeChild(elem);
+    },
+    $browser_object = browser_object_dom_node);
+
+define_key(content_buffer_normal_keymap, "d", "delete");
