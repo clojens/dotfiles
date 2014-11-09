@@ -1,4 +1,7 @@
 
+read_buffer_show_icons = true;
+
+hints_display_url_panel = true;
 
 // cwd (set default download directory)
 cwd=get_home_directory(); 
@@ -25,6 +28,7 @@ view_source_use_external_editor = true;
 // Allow kill (q or C-x k) to kill last buffer
 can_kill_last_buffer = false;
 
+// Let xkcd-mode put the funny alt text into the page.
 xkcd_add_title = true;
 
 // Clear history after 1 day

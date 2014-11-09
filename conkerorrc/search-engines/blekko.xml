@@ -1,0 +1,12 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+<ShortName>blekko</ShortName>
+<Description>blekko</Description>
+<InputEncoding>UTF-8</InputEncoding>
+<SyndicationRight>limited</SyndicationRight>
+<Image width="16" height="16" type="image/x-icon">http://blekko.com/favicon.ico</Image>
+<Url type="text/html" method="GET" template="http://blekko.com/ws/+{searchTerms}"/>
+<Url type="application/x-suggestions+json" template="http://blekko.com/autocomplete?term={searchTerms}&amp;lang={language?}&amp;form=opensearch"/>
+<Url type="application/opensearchdescription+xml" rel="self" template="http://blekko.com/s/blekko.xml" />
+<moz:SearchForm>http://blekko.com/</moz:SearchForm>
+</OpenSearchDescription>

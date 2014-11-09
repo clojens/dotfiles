@@ -1,0 +1,67 @@
+// new bindings
+define_key(default_global_keymap, "C-w", "kill-current-buffer");
+
+// rebound from global.js
+define_key(default_global_keymap, "h", "find-url");
+define_key(default_global_keymap, "f1", default_help_keymap);
+define_key(default_global_keymap, "b", "switch-to-buffer");
+define_key(default_global_keymap, "C-f", "isearch-forward"); 
+// note, i had to comment out the "C-f" binding in basic-commands.js to make this work
+
+// rebound from isearch.js
+define_key(isearch_keymap, "C-f", "isearch-continue-forward");
+
+// rebound from normal.js
+define_key(content_buffer_normal_keymap, "back_space", "go-back");
+define_key(content_buffer_normal_keymap, "S-back_space", "go-forward");
+
+// rebound from element.js
+//define_key(content_buffer_normal_keymap, "k", "bookmark");
+
+// rebound from basic-commands.js
+define_key(content_buffer_normal_keymap, "home","beginning-of-line");
+define_key(content_buffer_normal_keymap, "end","end-of-line");
+define_key(content_buffer_normal_keymap, "C-home","cmd_scrollTop");    
+define_key(content_buffer_normal_keymap, "C-end","cmd_scrollBottom");
+define_key(content_buffer_normal_keymap, "C-c","cmd_copy");
+
+// rebound from text.js
+define_key(content_buffer_text_keymap, "home", "cmd_beginLine");
+define_key(content_buffer_text_keymap, "end", "cmd_endLine");
+define_key(content_buffer_text_keymap, "C-left", "cmd_wordPrevious");
+define_key(content_buffer_text_keymap, "C-right", "cmd_wordNext");
+define_key(content_buffer_text_keymap, "C-y", "cmd_redo");
+define_key(content_buffer_text_keymap, "C-z", "cmd_undo");
+define_key(content_buffer_text_keymap, "C-v", "cmd_paste");
+define_key(content_buffer_text_keymap, "C-x", "cmd_cut");
+define_key(content_buffer_text_keymap, "C-c", "cmd_copy");
+
+// new for textarea.js
+define_key(content_buffer_textarea_keymap, "home", "cmd_beginLine");
+define_key(content_buffer_textarea_keymap, "end", "cmd_endLine");
+define_key(content_buffer_textarea_keymap, "C-left", "cmd_wordPrevious");
+define_key(content_buffer_textarea_keymap, "C-right", "cmd_wordNext");
+define_key(content_buffer_textarea_keymap, "C-y", "cmd_redo");
+define_key(content_buffer_textarea_keymap, "C-z", "cmd_undo");
+define_key(content_buffer_textarea_keymap, "C-v", "cmd_paste");
+define_key(content_buffer_textarea_keymap, "C-x", "cmd_cut");
+define_key(content_buffer_textarea_keymap, "C-c", "cmd_copy");
+
+// rebound from textarea.js
+define_key(content_buffer_textarea_keymap, "C-home", "cmd_moveTop");
+define_key(content_buffer_textarea_keymap, "C-end", "cmd_moveBottom");
+
+// rebound from minibuffer.js
+define_key(minibuffer_base_keymap, "home", "minibuffer-cmd_beginLine");
+define_key(minibuffer_base_keymap, "end", "minibuffer-cmd_endLine");
+define_key(minibuffer_base_keymap, "C-left", "minibuffer-cmd_wordPrevious");
+define_key(minibuffer_base_keymap, "C-right", "minibuffer-cmd_wordNext");
+define_key(minibuffer_base_keymap, "C-v", "minibuffer-cmd_paste");
+define_key(minibuffer_base_keymap, "C-c", "minibuffer-cmd_copy");
+
+// rebound from zoom.js
+define_key(content_buffer_normal_keymap, "C-subtract", "zoom-out-text");
+define_key(content_buffer_normal_keymap, "C-add", "zoom-in-text");
+
+
+

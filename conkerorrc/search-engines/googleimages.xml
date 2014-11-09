@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <!-- Created by Stefan Hittler on Tue, 17 Oct 2006 13:17:08 GMT -->
+  <ShortName>Google Images</ShortName>
+  <Description>Google Images Search</Description>
+  <Url type="text/html" method="get" template="http://images.google.com/images?q={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="http://suggestqueries.google.com/complete/search?output=firefox&amp;client=firefox&amp;hl=en-US&amp;q={searchTerms}"/>
+  <Image width="16" height="16">http://mycroft.mozdev.org/updateos.php/id0/googleimages.ico</Image>
+  <InputEncoding>UTF-8</InputEncoding>
+  <SearchForm>http://images.google.com/images</SearchForm>
+  <UpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/googleimages.xml</UpdateUrl>
+  <IconUpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/googleimages.ico</IconUpdateUrl>
+  <UpdateInterval>7</UpdateInterval>
+</OpenSearchDescription>
