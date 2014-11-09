@@ -1,39 +1,62 @@
-;; rob jentzema's keymap of 🔖tags
-;; 💉inject
-
 {:+
  {:app
   {;; Keep space free from kv pairs to easily alt-↓&↑
    "ctrl-shift-space" [:workspace.show]
-   "ctrl-t" [:instarepl] ;📝
-   "alt-a" [:aleph.browse] ;📚
+   "f12" [:dev-inspector]
+   "ctrl-t" [:instarepl] ; :tabs.focus-active :instarepl.toggle-live :eval-editor] ;📝
+
    "ctrl-right" [:tabs.next]
    "ctrl-left" [:tabs.prev]
-   "ctrl-backspace" [:instarepl.toggle-live] ;📴
    "ctrl-b" [:behaviors.modify-user]
    "ctrl-k" [:keymap.modify-user] ;🔑
-   "ctrl-/" [:toggle-log] ;📃
    "alt-w" [:workspace.show] ;🏭
    "ctrl-d" [:editor.doc.toggle] ;📒
-   "ctrl-shift-/" [:clear-console :reset-working] ;💤 💥
    "alt-n" [:new-file :set-syntax]
+   "ctrl-shift-/" [:clear-console :reset-working] ;💤 💥
    }
 
   :editor
   {;; Generic *all* Light Table editors
-   "alt-up" [:editor.sublime.swapLineUp]
-   "alt-down" [:editor.sublime.swapLineDown]
-   "alt-left" [:editor.line-start]
-   "alt-right" [:editor.line-end]
-   "ctrl-space" [:editor.sublime.selectBetweenBrackets] ;
+
+  "alt-b" [:add-browser-tab :browser.url-bar.focus]
+   "alt-up"   [:editor.sublime.swapLineUp]    ; ↑ easily swap line up
+   "alt-down" [:editor.sublime.swapLineDown]  ; ↓ easily swap line down
+   "alt-left" [:editor.line-start]            ; ← begin of line
+   "alt-right" [:editor.line-end]             ; → end of line
+
+   "ctrl-`" [:instarepl.toggle-live]
+   "alt-a" [:aleph.browse] ;📚
+
+   "ctrl-m" [ (:eval.custom "(ns lt.custom (:require [lt.objs.popup :as popup]))
+                            (popup/popup! {:header \"Light Table has been updated!\"
+                             :body (str \"Light Table has been updated to \" ver \"! Just
+                                        restart to get the latest and greatest.\")
+                             :buttons [{:label \"ok\"}]})")]
+
+
+
+   "ctrl-backspace" [:instarepl.toggle-live :eval-editor-form] ;📴
+   "ctrl-shift-backspace" [:editor.disconnect-clients :show-add-connection]
+   "ctrl-pagedown" [:show-add-connection]
+   "ctrl-pageup" [:hide-connect]
+
+;;    "ctrl-enter" [:paredit.select.parent :eval-editor-form]
+
+   "ctrl-/" [:toggle-console :focus-last-editor] ;📃
+
+   "ctrl-." [:show-connect :focus-last-editor] ;📶
+   "ctrl-shift-." [:show-connect :editor.disconnect-clients :focus-last-editor :paredit.select.parent :eval-editor-form :clear-console :clear-inline-results] ;📶
+
+   "alt-[" [:unindent-selection]
+   "alt-]" [:indent-selection]
+   "alt-s" [:editor.sublime.selectBetweenBrackets] ;
    "alt-d" [:editor.delete-line] ;⨳
    "ctrl-t" [:instarepl :instarepl.toggle-live] ;🌀
-   "ctrl-shift-." [:show-connect :focus-last-editor] ;📶
    "ctrl-i" [:clear-inline-results] ;⎚
    "ctrl-;" [:toggle-comment-selection] ;💬
    "ctrl-k" [:keymap.modify-user] ;💍
    "ctrl-b" [:behaviors.modify-user] ;💑
-   "alt-q" [:lt.plugins.reflow/reflow] ;🔀
+   "alt-q" [:lt.plugins.reflow/reflow]
    }
 
      }}

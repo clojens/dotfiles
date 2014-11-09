@@ -1,0 +1,4 @@
+{:modes {:+ #{:editor.clj.instarepl}}
+ :snippets [{:name "Demo: println"
+             :key "pl"
+             :snippet "(println ${1:message})"}]}

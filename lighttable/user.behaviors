@@ -20,19 +20,26 @@
      ;; The editor tag is applied to all editors
      :editor [:lt.objs.editor/no-wrap
               (:lt.objs.style/set-theme "cheerup") ;; my custom theme
+;;               (:lt.objs.style/set-theme "ibdknox")
               :lt.objs.editor/line-numbers
               (:lt.objs.style/font-settings "DejaVu Sans Mono" 11 1.4)
+              (:lt.plugins.reflow/set-width 120)
               :lt.plugins.vim/activate-vim
+
               ]
+
+     :files [(:lt.objs.files/file-types
+              [{:name "BNF" :exts [:ebnf :abnf :bnf :insta] :mime "text/x-plaintext" :tags [:editor.bnf]}
+             ])
+             ]
+
+
 
      ;; Here we can add behaviors to just clojure editors
      :editor.clojure [(:lt.plugins.clojure/print-length 2000)]
 
 
-     :editor.clj.instarepl [(:lt.plugins.clojure.instarepl/start-content
-                             ";; My liege? Use (help) for more info...")
-
-                            ]}
+     :editor.clj.instarepl [(:lt.plugins.clojure.instarepl/start-content ";;(help)")]}
 
 
  ;; use the subtract key to remove behavior added by other diffs
