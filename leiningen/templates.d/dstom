@@ -1,0 +1,192 @@
+
+(require '[adi.core :as adi]
+         '[datomic.api :as d])
+
+
+
+(def bundle-schema
+  {:bundle {:name [{:required true
+                    :unique :value
+                    :restrict ["name needs to be a keyword with optionally hyphens"
+                               #(keyword? %)]}]
+
+            :type [{:type :enum
+                    :default :release
+                    :enum {:ns :bundle.type
+                           :values #{:release :custom :global}}}]
+
+            :rating  [{:type :long
+                       :default 0}]
+
+            :packages [{:type :ref
+                        :cardinality :many
+                        :ref {:ns :package}}]}
+
+   :role {:name [{:required true}]
+           }
+
+   :person {:name [{:required true}]
+            :email [{:required true}]}
+
+   :project {:name [{:required true}]
+
+             :url [{:required true
+                    :unique :value
+                    :restrict ["URL is not valid" #(java.net.URL. %)]}]
+             :authors [{:type :ref
+                       :cardinality :many
+                       :ref {:ns :person}}]
+             :written-in [{:required true}]
+             }
+
+   :package {:artifact [{:required true
+                         :fulltext true}]
+             :groupid [{:fulltext true}]
+             :version [{:required true}]
+             }}
+
+
+  )
+
+
+
+
+
+
+(dagrente :dagen 1 :bedrag 70 :rente 0.05)
+;; meteen aankoop artikel van 20 euro
+
+;; rente wijz. bank na 5 dagen ontvangst initieel bedrag
+(dagrente :dagen 5 :bedrag 50 :rente 0.05)
+
+;; aankoop van een artikel 30 euro op dag 10, = maar 5 dagen rente ontvangen van 50 euro
+(dagrente :dagen 5 :bedrag 50 :rente 0.04)
+
+;; die aankoop was 30 euro, 50 - 30 = 20 maar dit rekent zich dus door pas
+;; wanneer we weten hoe lang dat bedrag vast stond = de crux van het verhaal
+(dagrente :dagen 3 :bedrag 20 :rente 0.04)
+
+;; want nog eens 3 dagen later wordt gekocht een product van 15 euro en pas nu weten we dat
+;; het bedrag van 20 euro voorheen 3 dagen vast rente opleverde en nu afneemt tot 5 euro
+
+;; bank wijzigde rente 20 dagen later naar 0.05, de oude rente geldt dus want die nieuwe
+;; gaat nu pas lopen
+(dagrente :dagen 20 :bedrag 5 :rente 0.04)
+
+;; initieel bedrag als eerste daarna reduce eroverheen
+(reduce-kv (fn [agg _ val] (- agg val))
+           70 ; initial certificate
+           {:aankoop-1 20
+            :aankoop-2 30
+            :aankoop-3 15})
+
+;; deze geeft ons de juiste mutaties van 70 euro -> 5 euro
+(reductions - [70 20 30 15])
+
+
+;; (rente dag bedrag percentage) ; perc kan per dag fluctueren = bank, bedrag fluctueert = aankoop, dagen fluctueert (soms nooit)
+(dagrente :dagen 1 :bedrag 50 :rente 0.05)
+;(afname :dagx 10 )
+(dagrente :dagen 20 :bedrag 50 :rente 0.05)
+(dagrente :dagen 20 :bedrag 70 :rente 0.05)
+
+(map #(dagrente :dagen %1 :bedrag %2 :rente 0.05)
+     [19 10 7 1]
+     [40 30 20 10])
+
+;; purchase of any vouchers or gift certificates involves interest
+;; HOWEVER, in the current system:
+;; purchase P of type T voucher V on day D1 in month M1 and consumed on moment D2 in month M1 will issue pay on D31
+(dagrente :dagen 1 :bedrag 50 :rente 0.05)
+(dagrente :dagen 31 :bedrag 50 :rente 0.05)
+
+
+; stel je kunt afspreken dat arrangementen niet die maand maar de maand erop altijd verrekend wordt?
+(rente 31 50 0.05)
+; max bovengrens bij aankoop 1e van de maand + 30 + 31
+;(rente 61 50 0.05)
+
+
+
+;; doorlooptijd in dagen, levensduur in maanden
+(defrecord Verkoop [verkoopprijs kostprijs levensduur-mnd doorlooptijd-dag])
+(defn avg [sq] (float (/ (reduce + sq) (count sq))))
+
+
+
+
+
+
+
+(require '[adi.core :as adi]
+         '[datomic.api :as d])
+
+(def schema-1
+  {:account {:user     [{:required true
+                         :unique :value}]
+             :password [{:required true
+                         :restrict ["password needs an integer to be in the string"
+                                    #(re-find #"\d" %)]}]
+             :type     [{:type :enum
+                         :default :free
+                         :enum {:ns :account.type
+                                :values #{:admin :free :paid}}}]
+             :credits  [{:type :long
+                         :default 0}]
+             :books    [{:type :ref
+                         :cardinality :many
+                         :ref  {:ns :book}}]}
+   :book   {:name    [{:required true
+                       :fulltext true}]
+            :author  [{:fulltext true}]}})
+
+(def ds (adi/datastore "datomic:mem://example-2" schema-1 true true))
+
+(adi/insert! ds {:account {:user "adi" :password "hello1"}})
+(adi/insert! ds {:account {:user "adi2" :password "hello2" :credits 10}})
+(adi/select ds :account)
+(adi/select ds :account :hide-ids) ;; We can hide ids for ease of view
+(adi/select ds {:account/user "adi"} :first :hide-ids)
+(adi/transactions ds :account/user)
+(adi/transactions ds :account/user "adi")
+(adi/select ds :account :at 1001 :hide-ids)
+
+(d/q '[:find ?x :where
+       [?x :db/ident :account.type/free]]
+     (d/db (:conn ds)))
+
+(d/q '[:find ?x :where
+       [?x :db/ident :account.type/paid]]
+     (d/db (:conn ds)))
+
+(adi/insert! ds [{:account {:user "adi6"
+                            :password "hello1"}
+                  :account/type :paid}
+                 {:account {:password "hello2" :type
+                            :account.type/admin}
+                  :account/user "adi4"}
+                 {:account {:user "adi7"
+                            :credits 1000}
+                  :account/password "hello5"}])
+
+(adi/insert! ds [{:account/user "foo"
+                  :account/password "hello22"
+                  :account/type :paid}])
+
+(adi/select ds :account :hide-ids)
+(adi/select ds {:account/type :admin} :first :hide-ids)
+
+
+(adi/insert! ds
+         [{:account {:user "adi11" :password "hello1"}}
+          {:account {:user "adi22" :password "hello2"
+                     :books #{{:name "The Count of Monte Cristo"
+                               :author "Alexander Dumas"}
+                              {:name "Tom Sawyer"
+                               :author "Mark Twain"}
+                              {:name "Les Misérables"
+                               :author "Victor Hugo"}}}}])
+
+
+
+

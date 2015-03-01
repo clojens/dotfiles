@@ -1,0 +1,7 @@
+
+{:bundles
+ {:core {0-0-1 '[foo bar baz]
+         0-0-2 '[baz bam bim]
+         }}
+
+ }

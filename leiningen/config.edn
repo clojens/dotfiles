@@ -1,0 +1,13 @@
+{:wbdb {:db "wb001" :user "root" :password ""}
+ :dict {:wordnet "/home/acme/projects/resources/dict"}
+
+
+
+
+
+
+
+}
+
+;;  :nl-dagen '[maandag dinsdag woensdag donderdag vrijdag zaterdag zondag]
+

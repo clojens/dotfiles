@@ -65,8 +65,8 @@ define_key(content_buffer_normal_keymap, "N",           "isearch-continue-backwa
 
 // Browsing
 
-define_key(content_buffer_normal_keymap, "}",           "forward");
-define_key(content_buffer_normal_keymap, "{",           "back");
+define_key(content_buffer_normal_keymap, ">",           "forward");
+define_key(content_buffer_normal_keymap, "b",           "back");
 define_key(content_buffer_normal_keymap, "\"",          "up");
 
 // Switching
